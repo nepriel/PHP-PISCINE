@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8" />
     <title>Mendeleïev</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+
+        p {
+            margin: 0;
+            display: inline;
+            position: absolute;
+            bottom: 0;
+        }
+
         h1 {
             color: crimson;
+            font-size: 20px;
             text-align: center;
         }
 
         h2 {
             text-align: center;
             font-size: 1vw;
+            clear: both;
+            margin: 0;
         }
         hr {
             width: 90%;
-            height: 8px;
+            height: 2px;
             margin-left: auto;
             margin-right: auto;
             background-color: crimson;
@@ -24,19 +36,25 @@
             margin-bottom: 5px;
         }
         table {
-            width: 100%;
+            width: 97vw;
+            height: 80vh;
         }
+
         td {
             border: 1px solid black;
             background-color: darkorange;
             font-size: 1vw;
+            position: relative;
         }
         .invisible{
             border: none;
             background-color: white;
         }
         .mass {
-            text-align: right;
+            display: inline;
+            position: absolute;
+            right: 0;
+            top: 0;
         }
 
         .gaz {
@@ -89,10 +107,10 @@
 </head>
 
 <body>
+    <div class="gogo">
     <h1>VOICI LE TABLEAU PERIODIQUE DES ELEMENTS</h1>
     <hr />
-    <br />
-    <img class="lit-picture" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/DIMendeleevCab.jpg/1024px-DIMendeleevCab.jpg" />
+    <img class="lit-picture" src="https://minecraft.fr/wp-content/uploads/2018/01/Admin_Arabesque_2.png" />
 
     <table contenteditable="true">
         <tr>
@@ -239,6 +257,7 @@
                     <td class="otherpink"><p class="mass">262</p><h2>Lr</h2><p>103</p></td>
             </tr>
     </table>
+    </div>
 </body>
 
 </html>
