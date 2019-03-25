@@ -1,0 +1,44 @@
+ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    padding: 12% 0%;
+}
+
+.test {
+    text-align: center;
+  display: block;
+  float: left;
+  color: black;
+  background-color: #f1f1f1;
+  padding: 12%;
+  text-decoration: none;
+  border-right: 4px solid #bbb;
+}
+ 
+.test:last-child {
+  border-right: none;
+}
+
+.test:hover {
+    background-color: #555;
+    color: white;
+}
+
+.submenu {
+    display: none;
+    float: left;
+    color: black;
+}
+
+.o {
+    display: block;
+    padding: 10%;
+    width: 150px
+    height: 150px;
+    border: 1px solid black;
+}
+
+.test:hover > ul.submenu {
+    display: block;
+}
