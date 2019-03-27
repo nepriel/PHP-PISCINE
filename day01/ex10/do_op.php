@@ -17,4 +17,8 @@ if ($argc == 4)
 		$res = $a % $b;
 	echo $res."\n";
 }
+else
+{
+	echo "Incorrect Parameters\n";
+}
 ?>
