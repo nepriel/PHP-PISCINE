@@ -58,7 +58,7 @@ if ($argc == 2)
 			return (0);
 		}
 		$test = array("$tab[2]");
-		$month = preg_grep("/^([Jj]anvier|[Ff]evrier|[Mm]ars|[Aa]vril|[Mm]ai|[Jj]uin|[Jj]uillet|[Aa]out|[Ss]eptembre|[Oo]ctobre|[Nn]ovembre|[Dd]ecembre)$/", $test);
+		$month = preg_grep("/^([Jj]anvier|[Ff][ée]vrier|[Mm]ars|[Aa]vril|[Mm]ai|[Jj]uin|[Jj]uillet|[Aa]o[ûu]t|[Ss]eptembre|[Oo]ctobre|[Nn]ovembre|[Dd][ée]cembre)$/", $test);
 		if ($month == NULL)
 		{
 			echo "Wrong Format\n";
@@ -89,7 +89,7 @@ if ($argc == 2)
 			return (0);
 		}
 		$test = array("$tab[4]");
-		$teston = preg_grep("/^\d{1,2}:\d{1,2}:\d{1,2}$/", $test);
+		$teston = preg_grep("/^\d{2}:\d{2}:\d{2}$/", $test);
 		if ($teston == NULL)
 		{
 			echo "Wrong Format\n";
