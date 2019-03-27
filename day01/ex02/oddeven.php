@@ -6,7 +6,7 @@ while (1)
 	$ligne=trim(fgets(STDIN));
 	if (feof(STDIN))
 	{
-		echo "^D\n";
+		echo "\n";
 		exit;
 	}
 	if (!is_numeric($ligne))

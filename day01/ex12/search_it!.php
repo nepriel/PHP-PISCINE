@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?PHP
 
-if ($argc >= 2)
+if ($argc >= 2 && $argv[1] != NULL && argv[2] != NULL)
 {
 	$str = $argv[1];
 	unset($argv[0]);

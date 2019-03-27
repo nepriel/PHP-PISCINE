@@ -12,7 +12,7 @@ function get_ascii($char)
 	$ascii = ord($char);
 	if ($ascii == 0)
 		return $ascii;
-	if (($ascii < 48) || ($ascii >= 91 && $ascii <= 96) || ($ascii >= 123))
+	if (($ascii < 48) || ($ascii >= 58 && $ascii <= 64) || ($ascii >= 91 && $ascii <= 96) || ($ascii >= 123))
 		$ascii += 355;
 	else if (is_numeric($char))
 		$ascii += 100;
