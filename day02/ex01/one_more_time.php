@@ -9,6 +9,8 @@ function get_month($str)
 		return (1);
 	else if (preg_match("/^[Ff]évrier$/", $str))
 		return (2);
+	else if (preg_match("/^[Ff]evrier$/", $str))
+		return (2);
 	else if (preg_match("/^[Mm]ars$/", $str))
 		return (3);
 	else if (preg_match("/^[Aa]vril$/", $str))
@@ -21,6 +23,8 @@ function get_month($str)
 		return (7);
 	else if (preg_match("/^[Aa]oût$/", $str))
 		return (8);
+	else if (preg_match("/^[Aa]out$/", $str))
+		return (8);
 	else if (preg_match("/^[Ss]eptembre$/", $str))
 		return (9);
 	else if (preg_match("/^[Oo]ctobre$/", $str))
@@ -28,6 +32,8 @@ function get_month($str)
 	else if (preg_match("/^[Nn]ovembre$/", $str))
 		return (11);
 	else if (preg_match("/^[Dd]écembre$/", $str))
+		return (12);
+	else if (preg_match("/^[Dd]ecembre$/", $str))
 		return (12);
 	else
 		return (0);

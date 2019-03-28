@@ -1,5 +1,32 @@
 #!/usr/bin/php
 <?PHP
+
+function error($s, $argc)
+{
+	if ($argc != 2)
+	{
+		echo "Wrong number of args\n";
+		return (1);
+	}
+	if (empty($s))
+	{
+		echo "empty str\n";
+		return (1);
+	}
+	$yo = curl_init($s);
+	curl_setopt($yo, CURLOPT_RETURNTRANSFER, 1);
+	$exec = curl_exec($yo);
+	if ($exec == FALSE)
+	{
+		echo "You may have written a wrong url: curl can't get it.\n";
+		return (1);
+	}
+	curl_close($yo);
+}
+
+if (error($argv[1], $argc))
+	return -1;
+
 if ($argc == 2)
 {
 	$c = curl_init($argv[1]);
@@ -20,7 +47,8 @@ if ($argc == 2)
 	$stack = explode("/", $argv[1]);
 	$name_ofdir = $stack[2];
 	$name_ofdir = dirname(__FILE__)."/".$name_ofdir;
-	mkdir($name_ofdir);
+	if (!file_exists($name_ofdir))
+		mkdir($name_ofdir);
 	foreach ($imgs as $swag)
 	{
 		$fd = curl_init($swag);
