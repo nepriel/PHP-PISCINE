@@ -15,7 +15,7 @@ while ($sub != NULL)
 	{
 		$date = date("M j H:i ", $array["time1"]);
 		$term = trim($array[line])."  ";
-		$user = trim($array[user])." ";
+		$user = trim($array[user])."  ";
 		$final = array_merge($final, array($user.$term.$date));
 	}
 	$sub = substr($sub, 628);;

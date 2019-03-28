@@ -3,7 +3,6 @@
 
 function first($match)
 {
-	print_r ($match);
 	return ('title="'.strtoupper($match[1]).'"');
 }
 
