@@ -7,7 +7,7 @@ function get_month($str)
 {
 	if (preg_match("/^[Jj]anvier$/", $str))
 		return (1);
-	else if (preg_match("/^[Ff][ée]vrier$/", $str))
+	else if (preg_match("/^[Ff]évrier$/", $str))
 		return (2);
 	else if (preg_match("/^[Mm]ars$/", $str))
 		return (3);
@@ -19,7 +19,7 @@ function get_month($str)
 		return (6);
 	else if (preg_match("/^[Jj]uillet$/", $str))
 		return (7);
-	else if (preg_match("/^[Aa]o[ûu]t$/", $str))
+	else if (preg_match("/^[Aa]oût$/", $str))
 		return (8);
 	else if (preg_match("/^[Ss]eptembre$/", $str))
 		return (9);
@@ -27,7 +27,7 @@ function get_month($str)
 		return (10);
 	else if (preg_match("/^[Nn]ovembre$/", $str))
 		return (11);
-	else if (preg_match("/^[Dd][ée]cembre$/", $str))
+	else if (preg_match("/^[Dd]écembre$/", $str))
 		return (12);
 	else
 		return (0);
@@ -58,7 +58,7 @@ if ($argc == 2)
 			return (0);
 		}
 		$test = array("$tab[2]");
-		$month = preg_grep("/^([Jj]anvier|[Ff][ée]vrier|[Mm]ars|[Aa]vril|[Mm]ai|[Jj]uin|[Jj]uillet|[Aa]o[ûu]t|[Ss]eptembre|[Oo]ctobre|[Nn]ovembre|[Dd][ée]cembre)$/", $test);
+		$month = preg_grep("/^([Jj]anvier|[Ff]évrier|[Mm]ars|[Aa]vril|[Mm]ai|[Jj]uin|[Jj]uillet|[Aa]oût|[Ss]eptembre|[Oo]ctobre|[Nn]ovembre|[Dd]écembre)$/", $test);
 		if ($month == NULL)
 		{
 			echo "Wrong Format\n";
@@ -96,6 +96,11 @@ if ($argc == 2)
 			return (0);
 		}
 		$nmonth = get_month($month[0]);
+		if (!checkdate ($nmonth, intval($day[0]), intval($year[0])))
+		{
+			echo "Wrong Format\n";
+			return (0);
+		}
 		$retour = mktime(intval($hms[0]), intval($hms[1]), intval($hms[2]), $nmonth, intval($day[0]), intval($year[0]));
 		echo $retour."\n";
 	}
