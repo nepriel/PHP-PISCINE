@@ -1,5 +1,5 @@
 <?PHP
-if ($_SERVER['PHP_AUTH_USER'] === "Zaz" && $_SERVER['PHP_AUTH_PW'] === "jaimelespetitsponeys")
+if ($_SERVER['PHP_AUTH_USER'] === "zaz" && $_SERVER['PHP_AUTH_PW'] === "jaimelespetitsponeys")
 {
 	echo "<html><body>\n";
 	echo "Bonjour Zaz<br />\n";
@@ -7,12 +7,12 @@ if ($_SERVER['PHP_AUTH_USER'] === "Zaz" && $_SERVER['PHP_AUTH_PW'] === "jaimeles
 	$imageData = base64_encode(file_get_contents($image));
 	$src = 'data: '.mime_content_type($image).';base64,'.$imageData;
 	echo '<img src="', $src, '"';
-	echo "</body></html>\n";
+	echo ">\n</body></html>\n";
 }
 else 
 {
 	header('HTTP/1.0 401 Unauthorized');
-	header('WWW-Authenticate: Basic realm="Access to the site", charset="UTF-8"');
+	header('WWW-Authenticate: Basic realm="Espace membres"');
 	echo "<html><body>Cette zone est accessible uniquement aux membres du site</body></html>";
 }
 ?>
