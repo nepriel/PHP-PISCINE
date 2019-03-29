@@ -1,0 +1,4 @@
+docker-machine create --driver=virtualbox PHP
+eval $(docker-machine env PHP)
+#fix the redirection to have the e$r$p$ domain in virtualbox
+docker run -v $(PWD)/..:/var/www/html -p 8100:80 lioshi/lamp:php5
