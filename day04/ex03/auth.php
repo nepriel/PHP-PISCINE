@@ -8,7 +8,7 @@ function auth($login, $passwd)
 	$extracted = unserialize($get_content);
 	foreach ($extracted as $elem)
 	{
-		if ($extracted['login'] === $login && $extracted['passwd'] === $hash)
+		if ($elem['login'] === $login && $elem['passwd'] === $hash)
 			$modif = TRUE;
 	}
 	if ($modif == FALSE)

@@ -15,8 +15,9 @@ if (isset($_GET))
 
 <html><body>
 	<form action="index.php" method="get">
-		Identifiant: <input type="text" name="login" value="<?PHP if(isset($_SESSION['login'])){echo $_SESSION['login'];} ?>"></br>
-		Mot de passe: <input type="text" name="passwd" value="<?PHP if(isset($_SESSION['passwd'])){echo $_SESSION['passwd'];} ?>"></br>
+		Identifiant: <input type="text" name="login" value="<?PHP if(isset($_SESSION['login'])){echo $_SESSION['login'];} ?>">
+		</br>
+		Mot de passe: <input type="text" name="passwd" value="<?PHP if(isset($_SESSION['passwd'])){echo $_SESSION['passwd'];} ?>">
 		<input type="submit" value="OK">
 	</form>
 </body></html>
