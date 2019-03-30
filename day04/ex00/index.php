@@ -10,24 +10,13 @@ if (isset($_GET))
 		$_SESSION['passwd'] = $_GET['passwd'];
 	}
 }
-print_r ($_SESSION);
-
-
 ?>
 
 
-<html>
-<body>
-
-<form action="index.php" method="get">
-
-Identifiant: <input type="text" name="login" value="<?PHP if(isset($_SESSION['login'])){echo $_SESSION['login'];} ?>">
-</br>
-Mot de passe: <br>
-<input type="text" name="passwd" value="<?PHP if(isset($_SESSION['passwd'])){echo $_SESSION['passwd'];} ?>">
-<input type="submit" value="OK">
-</form>
-
-</body>
-
-</html>
+<html><body>
+	<form action="index.php" method="get">
+		Identifiant: <input type="text" name="login" value="<?PHP if(isset($_SESSION['login'])){echo $_SESSION['login'];} ?>"></br>
+		Mot de passe: <input type="text" name="passwd" value="<?PHP if(isset($_SESSION['passwd'])){echo $_SESSION['passwd'];} ?>"></br>
+		<input type="submit" value="OK">
+	</form>
+</body></html>
