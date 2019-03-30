@@ -1,5 +1,6 @@
 <?php
 require_once('db.php');
+session_start();
 //$res = mysqli_query($mysqli, "SELECT COUNT(1) FROM categories");
 ?>
 
@@ -49,13 +50,23 @@ require_once('db.php');
                 height: 120px;
                 display: inline-block;
                 background-color: #D3D3D3;
+                text-decoration: none;
             }
             
+            a {
+                text-decoration: none;
+            }
+
             h2{
                 clear: both;
                 margin-top: 40px;
                 color: white;
             }
+
+            .basket{
+                margin: 0;
+            }
+            
             p{
                 color: #616161;
             }
@@ -82,6 +93,7 @@ require_once('db.php');
             .images{
                 position: relative;
                 width: 35vw;
+                max-width: 600px;
                 margin: auto;
                 margin-top: 50px;
                 border: solid;
@@ -93,6 +105,10 @@ require_once('db.php');
                 border: solid white;
             }
 
+            .basketcount{
+                position: relative;
+            }
+
             .connection{
                 position: relative;
                 display: block;
@@ -102,6 +118,10 @@ require_once('db.php');
                 display: inline-block;
                 background-color: #D3D3D3;
             }
+
+            input[type="number"] {
+                width:50px;
+            }           
             </style>
  </head>
     <body>
@@ -116,27 +136,38 @@ require_once('db.php');
                         <div class=menuelement>
                             <form id="connection" action="index.php"><input type="hidden" name="a_recup" value="connect"/></form>
                             <a href="#" onclick='document.getElementById("connection").submit()'><h2>Connect</h2></a>
-                            <p>ID</p>
+                            <p><?php if (isset($_SESSION['first_name'])) echo $_SESSION['first_name']; ?></p>
                         </div>
                         <div class=menuelement>
                             <form id="panier" action="index.php"><input type="hidden" name="a_recup" value="basket"/></form>
-                            <a href="#" onclick='document.getElementById("panier").submit()'><h2>Basket</h2></a>
-                            <p>list</p>
+                            <a href="#" onclick='document.getElementById("panier").submit()'><h2 class=basket>Basket</h2></a>
+                            <p><?php if (isset($_COOKIE['basket'])) 
+                            $basket_array = unserialize($_COOKIE['basket']);
+                            foreach ($basket_array as $index => $elem)
+                            {
+                                if (!empty($index) && !empty($elem) && $elem != "true")
+                                echo "You have $elem $index in basket<br/>";
+                            }
+                            ?></p>
                         </div>
                     </div>
                     <?php
-                    if ($_GET['a_recup'] == "connect")
+                    if (isset($_GET['a_recup']) && $_GET['a_recup'] == "connect")
                     {
                         ?>
                     <div class='input'>
                     <div class='Connection'>
                     <p>
+                    <?php
+                    if (!(isset($_SESSION['id'])))
+                    {
+                        ?>
                     <h2>CONNECT TO WEBSITE</h2>
                     <form method="post" action="connect.php">
                         Mail<br/>
                         <input type="text" name="mail" value="" /><br/>
                         Password<br/>
-                        <input type="text" name="passwd" value ="" /><br/>
+                        <input type="password" name="passwd" value ="" /><br/>
                         <input type="submit" name="submit" value="connect">
                     </form>
                     <h2>CREATE ACCOUNT</h2>
@@ -152,22 +183,29 @@ require_once('db.php');
                         <input type="submit" name="submit" value="connect">
                     </form> 
                     <form id='connection' action='index.php' method='get'>
-                    <button type='submit' name='a_recup' value='quit'>quit</button>
+                    <button type='submit' name='a_recup' value='quit'>return to homepage</button>
                     </p>
                     </div>
                     </div>
                     <?php
+										}
+										else
+										{ ?>
+										<a href="logout.php">Se deconnecter</a>
+                                        <form id='connection' action='index.php' method='get'>
+                                        <button type='submit' name='a_recup' value='quit'>return to homepage</button>
+										<?php }
                 }
                 ?>
                     <?php
-                    if ($_GET['a_recup'] == "basket")
+                    if (isset($_GET['a_recup']) && $_GET['a_recup'] == "basket")
                     {
                         ?>
                     <div class='input'>
                     <div class='Connection'>
                     <p>
                     <form id='connection' action='index.php' method='get'>
-                    <button type='submit' name='a_recup' value='quit'>quit</button>
+                    <button type='submit' name='a_recup' value='quit'>return to homepage</button>
                     </p>
                     </div>
                     </div>
@@ -175,14 +213,14 @@ require_once('db.php');
                     }
                     ?>
                     <?php
-                    if ($_GET['a_recup'] == "categories")
+                    if (isset($_GET['a_recup']) && $_GET['a_recup'] == "categories")
                     {
                         ?>
                     <div class='input'>
                     <div class='Connection'>
                     <p>
                     <form id='connection' action='index.php' method='get'>
-                    <button type='submit' name='a_recup' value='quit'>quit</button>
+                    <button type='submit' name='a_recup' value='quit'>return to homepage</button>
                     </p>
                     </div>
                     </div>
@@ -190,13 +228,35 @@ require_once('db.php');
                     }
                     ?>
                     <?PHP
-                    if ($_GET['a_recup'] == "quit" || !(isset($_GET['a_recup'])))
+                    if (isset($_GET['a_recup']) && $_GET['a_recup'] == "quit" || !(isset($_GET['a_recup'])))
                     {
                         ?>
                     <div class="listitem">
                     <img src="ressources/man.png" alt="manshoe" class="images"/>
+                    <div class="basketcount">
+                    <br/>
+                    <form id="addtobasket" action='addtobasket.php' method='get'>
+                    PUT MAN SHOE IN BASKET
+                    <input id="basketmanshoe" type="number" name="manshoe" value="0">
+                    <button type='submit' name="basketmanshoe" value="true">go</button>
+                    </div>
                     <img src="ressources/lady.png" alt="ladyshoe" class="images"/>
+                    <div class="basketcount">
+                    <br/>
+                    <form id="addtobasket" action='addtobasket.php' method='get'>
+                    PUT LADY SHOE IN BASKET
+                    <input id="basketladyshoe" type="number" name="ladyshoe" value="0">
+                    <button type='submit' name="baskeladyshoe" value="true">yes</button>
+                    </div>
                     <img src="ressources/kid.png" alt="kidshoe" class="images"/>
+                    <div class="basketcount">
+                    <br/>
+                    <form id="addtobasket" action='addtobasket.php' method='get'>
+                    PUT KID SHOE IN BASKET
+                    <input id="basketkidshoe" type="number" name="kidshoe" value="0">
+                    <button type='submit' name="basketkidshoe" value="true">why not</button>
+                    </form>
+                    </div>
                     </div>
                     <?php
                     }
