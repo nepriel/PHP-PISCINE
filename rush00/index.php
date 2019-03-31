@@ -62,9 +62,11 @@ session_start();
                 margin-top: 40px;
                 color: white;
             }
-
-            .basket{
+           .basket{
                 margin: 0;
+            }
+            .littlebr{
+                margin:5px 0;
             }
             
             p{
@@ -141,12 +143,15 @@ session_start();
                         <div class=menuelement>
                             <form id="panier" action="index.php"><input type="hidden" name="a_recup" value="basket"/></form>
                             <a href="#" onclick='document.getElementById("panier").submit()'><h2 class=basket>Basket</h2></a>
-                            <p><?php if (isset($_COOKIE['basket'])) 
+                            <p><?php if (isset($_COOKIE['basket']))
                             $basket_array = unserialize($_COOKIE['basket']);
                             foreach ($basket_array as $index => $elem)
                             {
                                 if (!empty($index) && !empty($elem) && $elem != "true")
-                                echo "You have $elem $index in basket<br/>";
+                                {
+                                echo "You have $elem $index in basket<br class='littlebr'/>";
+                                $count_check = 1;
+                                }
                             }
                             ?></p>
                         </div>

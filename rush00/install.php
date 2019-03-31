@@ -3,7 +3,7 @@
 //----------------------- [ DATABASE CREATION ] -------------------------------
 
 // On se onnecte au parc de BDD
-if (!($mysqli = mysqli_connect("localhost", "root", "roottoor")))
+if (!($mysqli = mysqli_connect("e3r4p22.42.fr", "root", "roottoor")))
 	exit("ERROR WHILE CONNECTING TO DATABASE\n");
 
 // On s'assure de partir sur une base vide
