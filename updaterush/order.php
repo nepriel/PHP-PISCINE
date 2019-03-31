@@ -44,6 +44,32 @@ if (isset($_GET['checkout']) && $_GET['checkout'] == "send")
       $res = mysqli_query($db, "SELECT * FROM `products`");
       $stock_content = mysqli_fetch_all($res, MYSQL_ASSOC);
       echo "<pre>", print_r($stock_content), "</pre>";
+      foreach ($stock_content as $stock_content_index => $stock_subarray)
+      {
+        foreach ($stock_subarray as $index => $elem)
+        {
+          foreach ($basket_content as $key => $value) 
+          {
+            if (intval($value) > 0 && $key == $elem)
+            {
+              if (intval($stock_subarray['stock']) >= intval($value))
+              {
+              /* CONDITIONS D ACHAT RASSEMBLEES -> ON VIDE LE PANIER
+                                                -> ON UPDATE LE STOCK
+                                                -> ON envoit les infos pour la page de commande
+                                                */
+              $basket_content[$key] = 0;
+              $stock_subarray['stock'] == $stock_subarray['stock']) - intval($value);
+              
+              }
+              else
+              header('Location: error.php');
+            }
+            else
+            header('Location: error.php');
+          }
+        }
+      }
       //print_r ($stock_content);
 
     }

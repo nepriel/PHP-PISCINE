@@ -21,13 +21,7 @@ else
 echo "<p> empty basket </p>";
 }
 
-function is_connect()
-{
-  if (!empty($_SESSION['id']))
-  return (1);
-  else
-  return (0);
-}
+
 
 function checkout()
 {
