@@ -2,7 +2,8 @@
 require_once('db.php');
 session_start();
 include('basket.php');
-//$res = mysqli_query($mysqli, "SELECT COUNT(1) FROM categories");
+
+$products = mysqli_fetch_all(mysqli_query($db, "SELECT * FROM products"), MYSQLI_ASSOC);
 ?>
 
 <html>
@@ -147,14 +148,25 @@ include('basket.php');
                             <p><?php if (isset($_COOKIE['basket']))
                             {
                             $basket_array = unserialize($_COOKIE['basket']);
-                            foreach ($basket_array as $index => $elem)
+                            foreach ($basket_array as $yolo)
+                            {
+                            //print_r($yolo);
+                            if ($yolo[1] > 0)
+                            {
+                              $tmpid = $yolo[0];
+                              $res = mysqli_query($db, "SELECT name FROM `products` WHERE id={$tmpid}");
+                              $name = mysqli_fetch_array($res);
+                              echo $yolo[1]," ", $name['name'], " in basket <br/>";
+                            }
+                            }
+                            /*foreach ($basket_array as $index => $elem)
                             {
                                 if (!empty($index) && !empty($elem) && $elem != "true")
                                 {
-                                echo "You have $elem $index in basket<br class='littlebr'/>";
+                                echo "You have $elem $index in basket<br class='littlebr'/>";s
                                 $count_check = 1;
                                 }
-                            }
+                            }*/
                           }
                             ?></p>
                         </div>
@@ -215,11 +227,6 @@ include('basket.php');
                       print_basket();
                       ?>
                     <p>
-                            <form id='checkout' action='order.php' method='get'>
-                                <button type='submit' name='checkout' value='send'>checkout</button>
-                            </form>
-
-                            
                     <form id='connection' action='index.php' method='get'>
                     <button type='submit' name='a_recup' value='quit'>return to homepage</button>
                     </p>
@@ -248,35 +255,49 @@ include('basket.php');
                     {
                         ?>
                     <div class="listitem">
-                    <img src="ressources/man.png" alt="manshoe" class="images"/>
-                    <div class="basketcount">
-                    <br/>
-                    <form id="addtobasket" action='addtobasket.php' method='get'>
-                    PUT MAN SHOE IN BASKET
-                    <input id="basketmanshoe" type="number" min="0" name="manshoe" value="0">
-                    <button type='submit' name="basketmanshoe" value="true">go</button>
-                    </div>
-                    <img src="ressources/lady.png" alt="ladyshoe" class="images"/>
-                    <div class="basketcount">
-                    <br/>
-                    <form id="addtobasket" action='addtobasket.php' method='get'>
-                    PUT LADY SHOE IN BASKET
-                    <input id="basketladyshoe" type="number" min="0" name="ladyshoe" value="0">
-                    <button type='submit' name="baskeladyshoe" value="true">yes</button>
-                    </div>
-                    <img src="ressources/kid.png" alt="kidshoe" class="images"/>
-                    <div class="basketcount">
-                    <br/>
-                    <form id="addtobasket" action='addtobasket.php' method='get'>
-                    PUT KID SHOE IN BASKET
-                    <input id="basketkidshoe" type="number" min="0" name="kidshoe" value="0">
-                    <button type='submit' name="basketkidshoe" value="true">why not</button>
-                    </form>
-                    </div>
-                    </div>
-                    <?php
-                    }
-                    ?>
+                      <?php foreach ($products as $product) { ?> 
+                        <div class="basketcount">
+                          <img src="<?= $product['image'] ?>" alt="<?= $product['name'] ?>" class="images" />
+                          <br/>
+                          <form id="addtobasket_<?= $product['id'] ?>" action='addtobasket.php' method='get'>
+                              <?= strtoupper($product['name']); ?>
+                              <!-- <input type="hidden" name="product_id" min="0" value="<?= $product['id'] ?>" value="0"> -->
+                              <input type="number" name="<?= "product_" . $product['id'] ?>" min="0" value="0">
+                              <input type="submit" name="basket_submit" value="Mettre dans le panier">
+                        </div>
+                      <?php } ?>
+                                  </form>
+                  </div>
+                      <!--
+                      <div class="basketcount">
+                          <img src="ressources/man.png" alt="manshoe" class="images" />
+                          <br/>
+                          <form id="addtobasket" action='addtobasket.php' method='get'>
+                              PUT MAN SHOE IN BASKET
+                              <input id="basketmanshoe" type="number" min="0" name="manshoe" value="0">
+                              <button type='submit' name="basketmanshoe" value="true">go</button>
+                      </div>
+                      <div class="basketcount">
+                          <img src="ressources/lady.png" alt="ladyshoe" class="images" />
+                          <br/>
+                          <form id="addtobasket" action='addtobasket.php' method='get'>
+                              PUT LADY SHOE IN BASKET
+                              <input id="basketladyshoe" type="number" min="0" name="ladyshoe" value="0">
+                              <button type='submit' name="baskeladyshoe" value="true">yes</button>
+                      </div>
+                      <div class="basketcount">
+                          <img src="ressources/kid.png" alt="kidshoe" class="images" />
+                          <br/>
+                          <form id="addtobasket" action='addtobasket.php' method='get'>
+                              PUT KID SHOE IN BASKET
+                              <input id="basketkidshoe" type="number" min="0" name="kidshoe" value="0">
+                              <button type='submit' name="basketkidshoe" value="true">why not</button>
+                          </form>
+                      </div>
+                      -->
+                  <?php
+                  }
+                  ?>
             </div>
     </body>
 </html>
