@@ -1,19 +1,9 @@
 <?php
-switch ($_GET['reason']){
-  case "bad_credentials":
-    $errmsg = "Identifiants invalides"; break;
-  case "missing_credentials":
-    $errmsg = "Identifiants manquants"; break;
-  case "not_connected":
-    $errmsg = "Vous devez vous connecter pour valider votre commande"; break;
-  case "stock overflow":
-    $errmsg = "Vous avez selectionné trop d'articles, veuillez réessayer avec un nombre moins important"; 
-    setcookie("basket", NULL, 10);
-    break;
-  default:
-    $errmsg = "Une erreur s'est produite"; break;
-}
+
+$message = "Felicitation votre achat a été effectué avec succes\n"
+
 ?>
+
 <html>
 
 <Head>
@@ -79,7 +69,7 @@ switch ($_GET['reason']){
       MERCI
     </h1>
       <?PHP
-    echo "<p>".$errmsg."</p>"."\n";
+    echo "<p>".$message."</p>"."\n";
     ?>
       <form action="index.php">
         <input type="submit" name="BACK" value="BACK">

@@ -3,7 +3,15 @@ require_once('db.php');
 session_start();
 include('basket.php');
 
-$products = mysqli_fetch_all(mysqli_query($db, "SELECT * FROM products"), MYSQLI_ASSOC);
+if (isset($_GET['cancel']) && $_GET['cancel'] == 'cancel')
+{
+    setcookie("basket", NULL, 10);
+}
+
+if (empty($_GET['category']))
+    $products = mysqli_fetch_all(mysqli_query($db, "SELECT * FROM products"), MYSQLI_ASSOC);
+else  
+    $products = mysqli_fetch_all(mysqli_query($db, "SELECT * FROM products WHERE category = '{$_GET['category']}'"), MYSQLI_ASSOC);
 ?>
 
 <html>
@@ -125,7 +133,26 @@ $products = mysqli_fetch_all(mysqli_query($db, "SELECT * FROM products"), MYSQLI
 
             input[type="number"] {
                 width:50px;
-            }           
+            }   
+
+            .tata{
+                background-color: white;
+                display: inline-block;
+                width: 600px;
+                margin: auto;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                /*height: 3em;*/
+                border-bottom: 4px solid #4A4A4A; 
+
+            }
+            .first{
+                background-color: #767676; 
+                padding-bottom: 40px;
+            }
+            .last{
+                padding-bottom: 5px;
+            }
             </style>
  </head>
     <body>
@@ -145,19 +172,25 @@ $products = mysqli_fetch_all(mysqli_query($db, "SELECT * FROM products"), MYSQLI
                         <div class=menuelement>
                             <form id="panier" action="index.php"><input type="hidden" name="a_recup" value="basket"/></form>
                             <a href="#" onclick='document.getElementById("panier").submit()'><h2 class=basket>Basket</h2></a>
-                            <p><?php if (isset($_COOKIE['basket']))
+                            <p><?php if (isset($_COOKIE['basket']) && !(isset($_GET['cancel'])))
                             {
                             $basket_array = unserialize($_COOKIE['basket']);
-                            foreach ($basket_array as $yolo)
+                            //print_r($basket_array);
+                            $i = 1;
+                            foreach ($basket_array as $index => $yolo)
                             {
-                            //print_r($yolo);
-                            if ($yolo[1] > 0)
+                            if ($yolo > 0 && $i++ < 3)
                             {
-                              $tmpid = $yolo[0];
-                              $res = mysqli_query($db, "SELECT name FROM `products` WHERE id={$tmpid}");
+                              //$tmpid = $yolo[0];
+                              $res = mysqli_query($db, "SELECT name FROM `products` WHERE id={$index}");
                               $name = mysqli_fetch_array($res);
-                              echo $yolo[1]," ", $name['name'], " in basket <br/>";
+                              echo $yolo," ", $name['name'], " in basket <br/>";
                             }
+                            else if ($yolo > 0 && $i >= 3)
+                                {
+                                    echo "...";
+                                    break;
+                                }
                             }
                             /*foreach ($basket_array as $index => $elem)
                             {
@@ -181,8 +214,19 @@ $products = mysqli_fetch_all(mysqli_query($db, "SELECT * FROM products"), MYSQLI
                     <?php
                     if (!(isset($_SESSION['id'])))
                     {
-                        ?>
+                        ?><?php
+                    if (isset($_GET['maman']))
+                    {
+                    ?>
+                    <h2>YOU MUST CONNECT TO ORDER SOMETHING</h2>
+                    <?php
+                    }
+                    else
+                    {?>
                     <h2>CONNECT TO WEBSITE</h2>
+                    <?php
+                    }
+                    ?>
                     <form method="post" action="connect.php">
                         Mail<br/>
                         <input type="text" name="mail" value="" /><br/>
@@ -226,6 +270,9 @@ $products = mysqli_fetch_all(mysqli_query($db, "SELECT * FROM products"), MYSQLI
                       <?php
                       print_basket();
                       ?>
+                     <!-- <form id="checkout" action="checkout.php" method="get">
+                          <button type='submit' name='checkout' value='send'>checkout</button>
+                    </form>-->
                     <p>
                     <form id='connection' action='index.php' method='get'>
                     <button type='submit' name='a_recup' value='quit'>return to homepage</button>

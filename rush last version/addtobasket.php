@@ -12,14 +12,17 @@ if (!empty($_GET['basket_submit']) /*&& !empty($_GET['basket_id']) && !empty($_G
        // echo "<pre>";
        // print_r($_GET);
        // echo "</pre>";
-       // echo "<pre>";
-       // print_r($basket);
-       // echo "</pre>";
+       echo "<pre>";
+       print_r($basket);
+       echo "</pre>";
         foreach ($_GET as $index => $elem)
         {
             if (intval($elem) > 0)
-              $basket[substr($index, -1) -1][1] = $basket[substr($index, -1) -1][1] + intval($elem);
+            {
+              $basket[substr($index, 8)] = $basket[substr($index, 8)] + intval($elem);
+            }
         }
+        echo "<pre>", print_r($basket), "</pre>";
         //echo "<pre>";
         //print_r($basket);
         //echo "</pre>";
@@ -36,7 +39,8 @@ if (!empty($_GET['basket_submit']) /*&& !empty($_GET['basket_id']) && !empty($_G
         if (substr($var, 0, 8) === 'product_')
         {
           echo "on met ", substr($var, 8), " x ", $val;
-          $basket[] = array(substr($var, 8), $val);
+          //$basket[] = array(substr($var, 8), $val);
+          $basket[intval(substr($var, 8))] = $val;
         }
       }
       echo "<pre>", print_r($basket), "</pre>";
