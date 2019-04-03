@@ -15,7 +15,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)
         if (!empty($_GET['new_product_category']) && !empty($_GET['new_product_price']) && !empty($_GET['new_product_stock'])
             && is_numeric($_GET['new_product_category']) && is_numeric($_GET['new_product_price']) && is_numeric($_GET['new_product_stock']))
           mysqli_query($db, "INSERT INTO products (`name`, `category_id`, `price`, `stock`, `image`) VALUES ('{$_GET['product']}', '{$_GET['new_product_category']}', '{$_GET['new_product_price']}', '{$_GET['new_product_stock']}', '{$_GET['new_product_image']}')");
-        else header('Location: error.php?reason=invalid_product');
+				else 
+				{
+				header('Location: error.php?reason=invalid_product');
+				exit;
+				}
     }
     elseif ($_GET['action'] == 'Supprimer le produit')
       mysqli_query($db, "DELETE FROM products WHERE id = '{$_GET['product']}'");

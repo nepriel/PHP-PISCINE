@@ -14,6 +14,8 @@ switch ($_GET['reason']){
     $errmsg = "Vous avez selectionné trop d'articles, veuillez réessayer avec un nombre moins important"; 
     setcookie("basket", NULL, 10);
     break;
+  case "invalid_product";
+    $errmsg = "une valeur numerique doit etre rentree dans le champ 'stock' et 'price'"; break;
   default:
     $errmsg = "Une erreur s'est produite"; break;
 }
