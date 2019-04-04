@@ -1,0 +1,15 @@
+<- Vertex ---------------------------------------------------------------------
+The Vertex class handles coordinates for 3D colored points.
+
+An instance can be contructed from coordinates values:
+new Vertex( array( 'x' => 0.0, 'y' => 0.0, 'z' => 0.0 ) );
+
+An optionnal RGB color can be specified:
+$red   = new Color( array( 'red' => 255, 'green' =>   0, 'blue' =>   0 ) );
+$red_vertex = new Vertex( array( 'x' => 0.0, 'y' => 1.0, 'z' => 0.0, 'color' => $red ) );
+
+Floats are handled too.
+Any other use is undefined behaviour.
+
+The class doesn't provide methods for the moment.
+------------------------------------------------------------------    Vertex ->
