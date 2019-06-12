@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <style>
+
+            .circleBase {
+                border-radius: 50%;
+                width: 200px;
+                height: 200px;
+                background-color: red;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="circleBase" class="circleBase"></div>
+        <script type="text/javascript">
+
+
+            var ballon = document.getElementById("circleBase");
+            ballon.addEventListener("click", clickballon, false);
+            ballon.addEventListener("mouseout", mouseballon, false);
+
+            function clickballon()
+            {
+                var myballoon = document.getElementById("circleBase");
+                var add = myballoon.style.width;
+                myballoon.style.width = myballoon.offsetWidth+10+'px';
+                myballoon.style.height = myballoon.offsetHeight+10+'px';
+                if (myballoon.style.backgroundColor == '' || myballoon.style.backgroundColor == 'red')
+                    myballoon.style.backgroundColor = 'green';
+                else if (myballoon.style.backgroundColor == 'green')
+                    myballoon.style.backgroundColor = 'blue';
+                else if (myballoon.style.backgroundColor == 'blue')
+                    myballoon.style.backgroundColor = 'red'; 
+                
+                if (myballoon.style.width > '420px')
+                {
+                    myballoon.style.height = '200px';
+                    myballoon.style.width = '200px';
+                }
+            }
+            
+            function mouseballon()
+            {
+                var myballoon = document.getElementById("circleBase");
+                var add = myballoon.style.width;
+                myballoon.style.width = myballoon.offsetWidth-10+'px';
+                myballoon.style.height = myballoon.offsetHeight-10+'px';
+                if (myballoon.style.backgroundColor == '' || myballoon.style.backgroundColor == 'red')
+                    myballoon.style.backgroundColor = 'green';
+                else if (myballoon.style.backgroundColor == 'green')
+                    myballoon.style.backgroundColor = 'blue';
+                else if (myballoon.style.backgroundColor == 'blue')
+                    myballoon.style.backgroundColor = 'red'; 
+                
+                if (myballoon.style.width < '200px')
+                {
+                    myballoon.style.height = '200px';
+                    myballoon.style.width = '200px';
+                }
+            }
+
+            var colors = new Array('red', 'green', 'blue');
+            //for (key in colors)
+            //console.log(colors[key]);
+        </script>
+    </body>
+</html>
